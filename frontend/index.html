@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Otto: The AI Corporate Card & Spending Firewall for Autonomous Agents</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <!-- Application Header -->
+  <header class="app-header">
+    <div class="brand-group">
+      <span class="brand-title">Otto</span>
+      <span class="brand-subtitle">The AI Corporate Card & Spending Firewall</span>
+    </div>
+    <div class="header-meta">
+      <span class="status-badge" id="env-badge">PayPal Sandbox</span>
+      <span class="status-badge live" id="system-health">Operational</span>
+    </div>
+  </header>
+
+  <!-- High-Level Treasury Metrics Strip -->
+  <section class="metrics-strip" aria-label="System Metrics">
+    <div class="metric-panel">
+      <div class="metric-label">Settled Volume (USD)</div>
+      <div class="metric-value" id="metric-volume">$0.00</div>
+    </div>
+    <div class="metric-panel">
+      <div class="metric-label">Auto-Approved (PayPal)</div>
+      <div class="metric-value" id="metric-approved">0</div>
+    </div>
+    <div class="metric-panel">
+      <div class="metric-label">Dual-Control Quarantine</div>
+      <div class="metric-value" id="metric-quarantine">0</div>
+    </div>
+    <div class="metric-panel">
+      <div class="metric-label">Adversarial Blocks</div>
+      <div class="metric-value" id="metric-blocked">0</div>
+    </div>
+  </section>
+
+  <!-- Main Workstation Layout -->
+  <main class="app-container">
+    <!-- Left Column: Agent Dispatch & Testing Console -->
+    <section class="panel" aria-labelledby="dispatch-title">
+      <div class="panel-header">
+        <h2 id="dispatch-title" class="panel-title">Agent Execution Console</h2>
+        <span class="status-badge">Direct Sandbox Gateway</span>
+      </div>
+      <div class="panel-body">
+        <p class="section-desc">Select an automated benchmark scenario or submit a customized spend intent to evaluate against corporate mandates and PayPal Sandbox APIs.</p>
+
+        <!-- Benchmark Scenarios -->
+        <div class="scenario-list" id="scenarios-container">
+          <!-- Populated dynamically via app.js -->
+        </div>
+
+        <hr style="border: 0; border-top: 1px solid var(--border-subtle); margin: 20px 0;">
+
+        <!-- Custom Request Form -->
+        <form id="spend-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="agent-role" class="form-label">Agent Role</label>
+              <select id="agent-role" class="form-select">
+                <option value="devops-provisioner">devops-provisioner</option>
+                <option value="data-curator">data-curator</option>
+                <option value="content-licensor">content-licensor</option>
+                <option value="api-integrator">api-integrator</option>
+                <option value="general-assistant">general-assistant</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="agent-id" class="form-label">Agent Identifier</label>
+              <input type="text" id="agent-id" class="form-input" value="agent-devops-09" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="vendor-name" class="form-label">Vendor Name</label>
+              <input type="text" id="vendor-name" class="form-input" value="Docker Hub Registry" required>
+            </div>
+            <div class="form-group">
+              <label for="vendor-domain" class="form-label">Vendor Domain</label>
+              <input type="text" id="vendor-domain" class="form-input" value="hub.docker.com" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="category" class="form-label">Category</label>
+              <input type="text" id="category" class="form-input" value="developer_tool" required>
+            </div>
+            <div class="form-group">
+              <label for="amount" class="form-label">Amount (USD)</label>
+              <input type="number" step="0.01" id="amount" class="form-input" value="25.00" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="justification" class="form-label">Purchase Justification</label>
+            <textarea id="justification" rows="2" class="form-textarea" required>Standard monthly container image storage tier for CI/CD pipeline builds.</textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="raw-prompt" class="form-label">Raw Agent Prompt Context</label>
+            <textarea id="raw-prompt" rows="2" class="form-textarea">User command: Ensure container registry quota does not block release pipeline deployment.</textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block" id="btn-submit-intent">
+            Evaluate & Dispatch to PayPal Sandbox
+          </button>
+        </form>
+
+        <!-- Dynamic Telemetry Result Card -->
+        <div id="telemetry-box" class="telemetry-card" style="display: none;">
+          <div class="telemetry-header">
+            <span class="form-label" style="margin: 0;">Evaluation Outcome</span>
+            <span id="telemetry-pill" class="pill-decision">PENDING</span>
+          </div>
+          <div class="telemetry-row">
+            <strong>Adversarial Risk Score:</strong> <span id="telemetry-risk">0.00</span>
+          </div>
+          <div class="telemetry-row">
+            <strong>Policy Reasoning:</strong> <span id="telemetry-reasoning">-</span>
+          </div>
+          <div class="telemetry-row" id="telemetry-violations-row" style="display: none;">
+            <strong>Violations Flagged:</strong> <span id="telemetry-violations" style="color: var(--status-danger-text);">-</span>
+          </div>
+          <div class="telemetry-row" id="telemetry-paypal-row" style="display: none;">
+            <strong>PayPal Order ID:</strong> <span class="cell-mono" id="telemetry-order-id">-</span>
+          </div>
+          <div id="telemetry-approval-link-wrap" style="margin-top: 10px; display: none;">
+            <a href="#" target="_blank" rel="noopener noreferrer" id="telemetry-approval-link" class="btn btn-secondary" style="font-size: 12px; padding: 6px 12px;">
+              Open PayPal Sandbox Checkout
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Right Column: Audited Ledger & Quarantine Console -->
+    <section class="panel" aria-labelledby="ledger-title">
+      <nav class="tab-nav">
+        <button class="tab-btn active" id="tab-btn-quarantine" onclick="switchTab('quarantine')">
+          Quarantine Room (<span id="quarantine-count">0</span>)
+        </button>
+        <button class="tab-btn" id="tab-btn-ledger" onclick="switchTab('ledger')">
+          Transaction Ledger
+        </button>
+        <button class="tab-btn" id="tab-btn-policies" onclick="switchTab('policies')">
+          Mandate Policies
+        </button>
+      </nav>
+
+      <!-- Quarantine Tab Content -->
+      <div class="panel-body" id="tab-content-quarantine">
+        <p class="section-desc">Transactions exceeding autonomous clearing thresholds are held here in an authorized state awaiting human dual-control co-signature.</p>
+        <div id="quarantine-container" class="quarantine-list">
+          <!-- Populated dynamically via app.js -->
+        </div>
+      </div>
+
+      <!-- Ledger Tab Content -->
+      <div class="panel-body" id="tab-content-ledger" style="display: none;">
+        <div class="data-table-wrapper">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Timestamp</th>
+                <th>Transaction ID</th>
+                <th>Role</th>
+                <th>Vendor</th>
+                <th>Amount</th>
+                <th>Decision</th>
+                <th>Settlement</th>
+                <th>PayPal Order</th>
+              </tr>
+            </thead>
+            <tbody id="ledger-tbody">
+              <!-- Populated dynamically via app.js -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Mandate Policies Tab Content -->
+      <div class="panel-body" id="tab-content-policies" style="display: none;">
+        <p class="section-desc">Active cryptographic spending rules and Merchant Category Code (MCC) constraints configured per autonomous agent role.</p>
+        <div class="data-table-wrapper">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Agent Role</th>
+                <th>Single Cap</th>
+                <th>Hourly Velocity</th>
+                <th>Dual-Control Above</th>
+                <th>Allowed Categories</th>
+                <th>Prohibited</th>
+              </tr>
+            </thead>
+            <tbody id="policies-tbody">
+              <!-- Populated dynamically via app.js -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
+
