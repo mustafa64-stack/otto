@@ -27,7 +27,18 @@ class PayPalClient:
 
     def _is_mock_mode(self) -> bool:
         """Determines if default dummy keys are used or live sandbox credentials."""
-        return not self.client_id or "dummy" in self.client_id.lower() or not self.client_secret or "dummy" in self.client_secret.lower()
+        if not self.client_id or not self.client_secret:
+            return True
+        lowered_id = self.client_id.lower()
+        lowered_sec = self.client_secret.lower()
+        return (
+            "dummy" in lowered_id
+            or "dummy" in lowered_sec
+            or "your-sandbox" in lowered_id
+            or "your-sandbox" in lowered_sec
+            or "placeholder" in lowered_id
+            or "placeholder" in lowered_sec
+        )
 
     def get_access_token(self) -> str:
         """Retrieves an OAuth2 access token from PayPal Sandbox."""
@@ -74,22 +85,19 @@ class PayPalClient:
             )
 
         token = self.get_access_token()
+        purchase_unit: Dict[str, Any] = {
+            "reference_id": request.request_id,
+            "description": f"Agent {request.agent.agent_id}: {request.justification[:100]}",
+            "custom_id": request.agent.agent_id,
+            "amount": {
+                "currency_code": request.currency,
+                "value": f"{request.amount:.2f}",
+            },
+        }
+
         payload: Dict[str, Any] = {
             "intent": intent,
-            "purchase_units": [
-                {
-                    "reference_id": request.request_id,
-                    "description": f"Agent {request.agent.agent_id}: {request.justification[:100]}",
-                    "custom_id": request.agent.agent_id,
-                    "amount": {
-                        "currency_code": request.currency,
-                        "value": f"{request.amount:.2f}",
-                    },
-                    "payee": {
-                        "email_address": f"vendor-{request.vendor_name.lower().replace(' ', '')}@example.com"
-                    },
-                }
-            ],
+            "purchase_units": [purchase_unit],
             "application_context": {
                 "brand_name": "Otto Financial Gateway",
                 "landing_page": "NO_PREFERENCE",

@@ -24,3 +24,27 @@ def test_paypal_client_capture():
     assert capture_res["status"] == "COMPLETED"
     assert "capture_id" in capture_res
 
+def test_paypal_client_authorize_intent():
+    client = PayPalClient(client_id="dummy", client_secret="dummy")
+    req = SpendRequest(
+        agent=AgentIdentity(agent_id="test-agent-auth", role=AgentRole.DEVOPS_PROVISIONER),
+        vendor_name="Cloud GPU",
+        vendor_domain="cloudgpu.com",
+        category="cloud_compute",
+        amount=85.00,
+        justification="High value GPU lease",
+    )
+    order = client.create_order(req, intent="AUTHORIZE")
+    assert order.order_id.startswith("ORDER-SBX-")
+    assert order.status == "CREATED"
+    assert order.intent == "AUTHORIZE"
+    assert order.amount == 85.00
+
+def test_paypal_client_mock_detection():
+    # Detects placeholders and dummy keys
+    c1 = PayPalClient(client_id="your-sandbox-client-id-here", client_secret="your-sandbox-client-secret-here")
+    assert c1._is_mock_mode() is True
+
+    c2 = PayPalClient(client_id="dummy", client_secret="dummy")
+    assert c2._is_mock_mode() is True
+
