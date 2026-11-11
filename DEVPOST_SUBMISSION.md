@@ -10,6 +10,28 @@ Copy and paste each section directly into the submission form at `paypalaihackat
 
 ---
 
+## 0. "Try It Out" Links (Devpost Form Fields)
+
+Paste these links into each URL row under the **"Try it out" links** section (click **"Add another link"** for each):
+
+1. **Link 1:**
+   - **URL:** `https://github.com/mustafa64-stack/otto`
+   - **Label / Title:** `GitHub Repository (Source Code & Pytest Suite)`
+
+2. **Link 2:**
+   - **URL:** `https://github.com/mustafa64-stack/otto/releases/tag/v1.0.0`
+   - **Label / Title:** `GitHub Release v1.0.0 (Demo Video Walkthrough & Assets)`
+
+3. **Link 3:**
+   - **URL:** `https://github.com/mustafa64-stack/otto/blob/main/verify_payments.py`
+   - **Label / Title:** `PayPal Orders v2 Payment Verification Suite`
+
+4. **Link 4:**
+   - **URL:** `https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fmustafa64-stack%2Fotto`
+   - **Label / Title:** `1-Click Deploy to Vercel (Auto-config with vercel.json)`
+
+---
+
 ## 1. Project Overview
 
 ### Project Title
