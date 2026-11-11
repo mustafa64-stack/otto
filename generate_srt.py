@@ -48,7 +48,7 @@ def build_srt():
     srt_lines = []
     
     for i, (chunk_id, text) in enumerate(CHUNKS_TEXT):
-        mp4_path = f"video_chunks/{chunk_id}.mp4"
+        mp4_path = f"prototype_chunks/{chunk_id}.mp4"
         duration = get_duration(mp4_path)
         start_str = format_srt_time(current_time)
         end_str = format_srt_time(current_time + duration)
@@ -62,3 +62,4 @@ def build_srt():
 
 if __name__ == "__main__":
     build_srt()
+
