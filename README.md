@@ -96,7 +96,7 @@ otto/
 ### Installation
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/otto.git
+   git clone https://github.com/mustafa64-stack/otto.git
    cd otto
    ```
 

@@ -4,6 +4,12 @@ Copy and paste each section directly into the submission form at `paypalaihackat
 
 ---
 
+## Direct Submission Links
+- **GitHub Repository:** `https://github.com/mustafa64-stack/otto`
+- **Video File (1080p MP4 with Indian English voice & translucent subtitles):** Included in repository at `otto_demo_walkthrough.mp4`
+
+---
+
 ## 1. Project Overview
 
 ### Project Title
