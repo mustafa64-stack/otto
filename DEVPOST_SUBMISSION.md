@@ -10,25 +10,21 @@ Copy and paste each section directly into the submission form at `paypalaihackat
 
 ---
 
-## 0. "Try It Out" Links (Devpost Form Fields)
+## 0. "Try It Out" Links (The 3 Devpost Links)
 
-Paste these links into each URL row under the **"Try it out" links** section (click **"Add another link"** for each):
+Paste these 3 links into the **"Try it out" links** section on Devpost:
 
-1. **Link 1:**
+1. **GitHub Repository:**
    - **URL:** `https://github.com/mustafa64-stack/otto`
    - **Label / Title:** `GitHub Repository (Source Code & Pytest Suite)`
 
-2. **Link 2:**
-   - **URL:** `https://github.com/mustafa64-stack/otto/releases/tag/v1.0.0`
-   - **Label / Title:** `GitHub Release v1.0.0 (Demo Video Walkthrough & Assets)`
+2. **Vercel Live Demo:**
+   - **URL:** `https://vercel.com/new/import?s=https%3A%2F%2Fgithub.com%2Fmustafa64-stack%2Fotto` (or your live `https://<project-name>.vercel.app`)
+   - **Label / Title:** `Live Vercel Demo Workstation`
 
-3. **Link 3:**
-   - **URL:** `https://github.com/mustafa64-stack/otto/blob/main/verify_payments.py`
-   - **Label / Title:** `PayPal Orders v2 Payment Verification Suite`
-
-4. **Link 4:**
-   - **URL:** `https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fmustafa64-stack%2Fotto`
-   - **Label / Title:** `1-Click Deploy to Vercel (Auto-config with vercel.json)`
+3. **YouTube Video Walkthrough:**
+   - **URL:** `[Paste your YouTube link here]`
+   - **Label / Title:** `1080p Video Walkthrough (Indian English Developer Demo & Subtitles)`
 
 ---
 
