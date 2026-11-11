@@ -44,3 +44,4 @@ concat_cmd = [
 print("Concatenating into final MP4...")
 subprocess.run(concat_cmd, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 print(f"Successfully generated {out_video} (Size: {os.path.getsize(out_video) / 1024 / 1024:.2f} MB)")
+

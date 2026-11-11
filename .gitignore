@@ -9,6 +9,14 @@ env/
 venv/
 ENV/
 
+# Binaries & Chunks
+gh.exe
+git_bin/
+dev_chunks/
+prototype_chunks/
+video_chunks/
+video_assets/
+
 # Testing
 .pytest_cache/
 .coverage
